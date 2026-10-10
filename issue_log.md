@@ -64,8 +64,12 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Location:** `bankOfTheNorth.ts`, lines 23–27.
 - **Issue:** The withdrawal operation does not reject negative amounts or amounts greater than the available balance.
 - **Explanation:** After the arithmetic is repaired, an oversized withdrawal could make the balance negative. Subtracting a negative amount could instead increase the balance.
+  (Author Entry): The code is now updated,
+  condition checks that the amount is finite, greater than zero, and no greater than BALANCE before subtracting it.
 - **Suggested Fix:** Reject invalid withdrawal amounts and insufficient-funds requests before changing the balance. Confirm the group's zero-amount policy. Leave the stored balance unchanged when validation fails.
-- **Status:** Ongoing.
+  (Author Entry): The condition handles non-finite and non-positive amounts with an invalid-amount message, and
+  ensure an incorrect PIN is not reported as a funds error. Verify the branch order so each failure reports the correct cause.
+- **Status:** Partially addressed; pending testing and group review.
 
 ### LP02-07 — Withdrawal function name is misspelled
 

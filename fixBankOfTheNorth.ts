@@ -23,10 +23,19 @@ export function deposit(pin: number, amount: number) {
 
 // Withdraws money from a user's account.
 export function withdrawal(pin: number, amount: number) {
-  if (pin === USER_PIN) {
+  if (
+    pin === USER_PIN &&
+    Number.isFinite(amount) &&
+    amount > 0 &&
+    amount <= BALANCE
+  ) {
     BALANCE -= amount;
     console.log(BALANCE);
     return BALANCE;
+  } else if (amount > BALANCE && Number.isFinite(amount)) {
+    console.log("Insufficient Funds.");
+  } else if (!Number.isFinite(amount) || amount <= 0) {
+    console.log("Invalid Amount, Please Try Again.");
   } else {
     console.log("Incorrect PIN");
   }
