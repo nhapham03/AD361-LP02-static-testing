@@ -20,10 +20,10 @@ This file contains the required review sections and reflection prompts. It does 
 - **Required check:** Review `issue_log.md` and confirm whether the identified defects have been addressed.
 - **Final review note:** Pending — reviewer to complete after their final review.
 
-### Author
+### Nha Pham - Author
 
-- **Name:** Pending — author to complete.
-- **Review status:** Pending.
+- **Name:** Nha Pham
+- **Review status:** Ongoing.
 - **Required check:** Review the issue log and corrected code for unresolved defects.
 - **Final review note:** Pending — author to complete after their final review.
 
