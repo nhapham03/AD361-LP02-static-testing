@@ -9,9 +9,21 @@ This file contains the required review sections and reflection prompts. It does 
 
 ### José Antonio Horta Herrera — Scribe
 
-- **Review status:** Pending.
-- **Required check:** Compare each entry in `issue_log.md` with `fixBankOfTheNorth.ts`, update the status according to the actual result, and identify any unresolved entries.
-- **Final review note:** Pending — add after the corrected code has been reviewed.
+- **Review status:** Ongoing — awaiting author follow-up.
+- **Required check:** Compare `issue_log.md` with
+  `fixBankOfTheNorth.ts` and confirm the issue statuses.
+- **Cross-check note:** In commit `511a301`, the withdrawal
+  operation validates the amount and available funds before
+  subtracting from the balance. One follow-up remains in LP02-06:
+  an incorrect PIN combined with an amount above the balance
+  reaches the insufficient-funds message. The balance is not
+  changed, but the error-message order needs to match the
+  documented behavior.
+- **Additional observation:** `USER` is still declared but not
+  referenced in the corrected file. This should be reviewed
+  during the remaining cleanup.
+- **Final review note:** Pending until the follow-up is resolved
+  and the issue-log statuses are confirmed.
 
 ### Reviewer
 

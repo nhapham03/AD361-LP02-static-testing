@@ -12,7 +12,11 @@ Entries LP02-01 through LP02-11 organize the review annotations already present 
 - Existing annotations: [`bankOfTheNorth.ts` at review snapshot `a81274c`](https://github.com/nhapham03/AD361-LP02-static-testing/blob/a81274c913a6535053b25224f01e637a19f05fa2/bankOfTheNorth.ts).
 - All locations below refer to the original file at the main snapshot, not to the annotated branch, where added comments shift line numbers.
 
-No corrected file was present in either inspected branch. No entry is marked `Fixed`. Explanations describe source-code observations and potential consequences, not observed application failures. No application execution or ESLint output is recorded in this draft.
+The corrected code is available in `fixBankOfTheNorth.ts` on the
+`author-fixes` branch. This cross-check refers to commit `511a301`.
+Review follow-up remains open. The observations below come from
+reading the source code; automated-analysis results will be
+recorded separately in `check.md`.
 
 Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discussion`.
 
@@ -69,7 +73,16 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Suggested Fix:** Reject invalid withdrawal amounts and insufficient-funds requests before changing the balance. Confirm the group's zero-amount policy. Leave the stored balance unchanged when validation fails.
   (Author Entry): The condition handles non-finite and non-positive amounts with an invalid-amount message, and
   ensure an incorrect PIN is not reported as a funds error. Verify the branch order so each failure reports the correct cause.
-- **Status:** Partially addressed; pending testing and group review.
+- **Status:**  Needs discussion
+- **Scribe cross-check:** The corrected withdrawal function rejects
+  non-finite amounts, non-positive amounts, and amounts above the
+  balance before changing account state. However, with the starting
+  balance of 15983, `withdrawal(9999, 20000)` would reach the
+  "Insufficient Funds." message even though the PIN is incorrect.
+  No money would be withdrawn. Check the PIN first and return
+  immediately when it is incorrect, then validate the amount and
+  available funds. This is a static source-code observation, not
+  an executed test result.
 
 ### LP02-07 — Withdrawal function name is misspelled
 
