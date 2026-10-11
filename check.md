@@ -13,11 +13,10 @@ This file contains the required review sections and reflection prompts. It does 
 - **Required check:** Compare each entry in `issue_log.md` with `fixBankOfTheNorth.ts`, update the status according to the actual result, and identify any unresolved entries.
 - **Final review note:** Pending — add after the corrected code has been reviewed.
 
-### Reviewer
+### Ingrid Arenas - Reviewer
 
-- **Name:** Pending — reviewer to complete.
 - **Review status:** Pending.
-- **Required check:** Review `issue_log.md` and confirm whether the identified defects have been addressed.
+- **Required check:** const USER was assigned but never used, two options remove it or use it somewhere in a console message
 - **Final review note:** Pending — reviewer to complete after their final review.
 
 ### Nha Pham - Author
@@ -42,9 +41,9 @@ The manual review must precede the automated-analysis comparison. Do not treat e
 
 ### Original source analysis
 
-- **Command:** `npx eslint bankOfTheNorth.ts`
-- **Screenshot:** Pending — save the actual terminal output in `screenshots` and record the filename here.
-- **Observed results:** Pending — record actual diagnostics only.
+- **Command:** `npx eslint fixBankOfTheNorth.ts`
+- **Screenshot:** screenshots\eslint-original.png
+- **Observed results:** bankOfTheNorth has multiple issed where a variable is assigned but never used
 
 ### Corrected source analysis
 
