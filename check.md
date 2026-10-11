@@ -56,37 +56,62 @@ The manual review must precede the automated-analysis comparison. Do not treat e
 ### What did ESLint identify?
 
 Original source - bankOfTheNorth.ts:  
-ESLint reported multiple issues, primarily warnings about variables that were assigned but never used. This indicates that the original file had several unused declarations or logic paths that never referenced the assigned values.
+ESLint reported multiple warnigns from the `@typescript-eslint/no-unused-vars` rule. Several variables were declared and assigned values but never used, triggering repeated violations. One of these warnings involved the USER variable:
+`error  'USER' is assigned a value but never used`
 
 Corrected source - fixBankOfTheNorth.ts:  
-After applying fixes, ESLint reported no remaining errors or warnings.
-All unused variables were removed or properly used, and the corrected file now passes linting cleanly.
+
+After applying fixes, ESLint reported no remaining errors or warnings. All unused variables were either removed or properly referenced.
+The USER warning was resolved by adding a message that referenced the variable:  `Dear ${USER}, ${amount} was successfully transferred to ${reciver}`
 
 ### What did the group identify that ESLint did not?
 
-During manual review, the group identified non-linting issues such as:
+During manual review, the group identified several non‑linting issues that ESLint cannot detect. These issues came directly from the original code:
 
-- Logical inconsistencies in how data was handled
+- Logical inconsistencies in how data was handled: 
+    example line 14: 
+    Why ESLint didn’t catch it:
 
-- Redundant or unclear control flow
+    - BALANCE is an array, not a number
+    - Adding an array to a number results in string concatenation
+    - The balance is never actually updated
+
+    ESLint cannot detect incorrect business logic or misuse of data structures.
+
+- Redundant or unclear control flow:
+    example: lines 35-36
+    Why ESLint didn’t catch it:
+
+    - The console.log is unreachable code
+    - The function returns before performing its intended action
+
+    ESLint does not flag unreachable code
 
 - Missing validation or edge‑case handling
+    example: line 24
+    Why ESLint didn’t catch it:
+
+    - No check that amount is positive
+    - No check that amount is less than or equal to the balance
+    - No prevention of negative balances (a requirement)
+    - No error handling
+
+    These are semantic requirements, not linting violations.
 
 - Naming conventions or structural improvements that ESLint does not enforce
+    example: line 23
+    Why ESLint didn’t catch it:
 
-These are semantic or architectural issues, so ESLint would not flag them.
+    - The function name is misspelled (withdrawl instead of withdrawal)
+    - The parameter amount is never used
+    - The variable balance is referenced but not declared in this scope
+
+    ESLint does not enforce naming conventions or detect conceptual mismatches.
 
 ### Did ESLint identify anything the group missed?
 
-No, after the fixes were applied, ESLint reported zero issues.
-This means:
-
-- All previously reported unused variables were successfully addressed
-
-- No new warnings appeared
-
-- ESLint did not identify any additional problems beyond what the group already fixed
-
+Yes, there was one issue the group overlooked, which ESLint correctly flagged:
+A remaining no-unused-vars warning that had not been addressed during manual review. Once this final unused variable was fixed, ESLint reported zero issues.
 ## Completion Check
 
 Before submission, confirm that all members have added their names and final review notes; the issue-log statuses match the corrected code; all three screenshot requirements are satisfied; the reflection is based on actual outputs; and the required files are present in the public repository. Every group member must submit the same repository URL on Canvas.
