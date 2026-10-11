@@ -12,11 +12,7 @@ Entries LP02-01 through LP02-11 organize the review annotations already present 
 - Existing annotations: [`bankOfTheNorth.ts` at review snapshot `a81274c`](https://github.com/nhapham03/AD361-LP02-static-testing/blob/a81274c913a6535053b25224f01e637a19f05fa2/bankOfTheNorth.ts).
 - All locations below refer to the original file at the main snapshot, not to the annotated branch, where added comments shift line numbers.
 
-The corrected code is available in `fixBankOfTheNorth.ts` on the
-`author-fixes` branch. This cross-check refers to commit `511a301`.
-Review follow-up remains open. The observations below come from
-reading the source code; automated-analysis results will be
-recorded separately in `check.md`.
+No corrected file was present in either inspected branch. No entry is marked `Fixed`. Explanations describe source-code observations and potential consequences, not observed application failures. No application execution or ESLint output is recorded in this draft.
 
 Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discussion`.
 
@@ -29,7 +25,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Explanation:** The transaction functions attempt arithmetic on the account balance. Their intended repaired implementation needs a numeric value and, if transactions reassign that value, a mutable binding. The source does not establish which numeric opening balance `[15, 983]` was intended to represent.
 - **Suggested Fix:** Confirm the opening balance with the group, replace the array with that numeric value, and use a mutable binding such as `let` if transactions will reassign it. Do not assume that the intended amount is `15983` without agreement.
   (Author entry): Group have accepted the amount to be `15983`.
-- **Status:** Accepted and Ongoing.
+- **Status:** Fixed.
 
 ### LP02-02 — Deposit does not update stored account state
 
@@ -37,7 +33,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** The assignment targets the local `balance` parameter instead of the stored account balance.
 - **Explanation:** Even after the balance representation is repaired, assigning a result to the parameter does not update `BALANCE`; the function returns the stored value rather than an updated account balance.
 - **Suggested Fix:** After successful PIN and amount validation, add the deposit amount to the stored numeric account balance and return the updated value.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-03 — Deposit amount validation is missing
 
@@ -45,7 +41,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** The deposit operation does not reject a negative deposit amount.
 - **Explanation:** Once arithmetic and state updates are repaired, accepting a negative deposit could reduce the balance instead of adding funds and could violate the requirement that the balance never becomes negative.
 - **Suggested Fix:** Validate the deposit amount before changing account state. The existing annotations propose positive amounts; confirm whether zero should also be rejected, because the listed program requirements do not specify that policy.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-04 — Deposit parameter name is unclear
 
@@ -53,7 +49,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** The name `balance` is used for the value apparently intended to be deposited.
 - **Explanation:** The existing reviewer annotation recommends `amount` to distinguish the transaction amount from the stored account balance. This is a naming/readability suggestion, not a separate demonstrated functional defect.
 - **Suggested Fix:** If the group accepts the suggestion, rename the parameter to `amount` and update references consistently.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-05 — Withdrawal uses an undefined variable and incorrect arithmetic
 
@@ -61,7 +57,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** `balance = BALANCE + balance` refers to `balance`, which is not declared in the withdrawal function, uses addition instead of subtraction, and does not update the stored account balance.
 - **Explanation:** The function receives `amount`, but the transaction expression does not use it. The expression cannot implement a withdrawal as written.
 - **Suggested Fix:** After validation, subtract `amount` from the stored numeric account balance, update that stored balance, and return the updated value. Remove the references to the undefined `balance` variable.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-06 — Withdrawal amount and funds checks are missing
 
@@ -71,18 +67,8 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
   (Author Entry): The code is now updated,
   condition checks that the amount is finite, greater than zero, and no greater than BALANCE before subtracting it.
 - **Suggested Fix:** Reject invalid withdrawal amounts and insufficient-funds requests before changing the balance. Confirm the group's zero-amount policy. Leave the stored balance unchanged when validation fails.
-  (Author Entry): The condition handles non-finite and non-positive amounts with an invalid-amount message, and
-  ensure an incorrect PIN is not reported as a funds error. Verify the branch order so each failure reports the correct cause.
-- **Status:**  Needs discussion
-- **Scribe cross-check:** The corrected withdrawal function rejects
-  non-finite amounts, non-positive amounts, and amounts above the
-  balance before changing account state. However, with the starting
-  balance of 15983, `withdrawal(9999, 20000)` would reach the
-  "Insufficient Funds." message even though the PIN is incorrect.
-  No money would be withdrawn. Check the PIN first and return
-  immediately when it is incorrect, then validate the amount and
-  available funds. This is a static source-code observation, not
-  an executed test result.
+  (Author Entry): Fixed the condition to display the correct error message to user, condition checks for finite number, amount and balance validations.
+- **Status:** Fixed.
 
 ### LP02-07 — Withdrawal function name is misspelled
 
@@ -90,7 +76,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** The function is named `withdrawl`; the existing annotation suggests `withdrawal`.
 - **Explanation:** This is a naming suggestion. The spelling alone does not break matching function references, but a partial rename would make callers inconsistent.
 - **Suggested Fix:** Agree on the function name, then update the declaration and all callers together if the group accepts the rename.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-08 — Balance message is unreachable
 
@@ -98,7 +84,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** A `console.log` statement appears after an unconditional `return`.
 - **Explanation:** The function returns before it can reach the message.
 - **Suggested Fix:** Move the message before the return if it is needed, or remove it if returning the balance is sufficient for the agreed behavior.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-09 — Transfer does not forward the PIN correctly
 
@@ -106,7 +92,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** `withdrawl(amount)` supplies only one argument to a function declared with `pin` and `amount` parameters.
 - **Explanation:** The transaction amount is passed in the PIN position, the withdrawal amount argument is missing, and the PIN received by `transfer` is not forwarded.
 - **Suggested Fix:** Pass the supplied PIN and transaction amount in the correct order, using `withdrawl(pin, amount)` or the consistently renamed equivalent. Ensure the validated withdrawal path is used.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-10 — Transfer lacks an effective validated transaction path
 
@@ -114,7 +100,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** The existing annotations flag missing amount and available-funds checks in `transfer`.
 - **Explanation:** Transfer currently relies on an incorrect call to a withdrawal function that also lacks those checks. It therefore has no effective path that enforces the proposed positive-amount policy and prevents an overdraw.
 - **Suggested Fix:** Coordinate with LP02-06 and LP02-09. Either validate directly or delegate to the repaired withdrawal operation, and do not report a successful transfer unless the withdrawal actually succeeds. Document the agreed handling of rejected transactions.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-11 — Transfer returns a function reference
 
@@ -123,7 +109,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Explanation:** The existing reviewer annotation proposes calling `balanceCheck()` instead. That proposal addresses the missing invocation, but the final call must also match the group's decision about PIN protection in LP02-12.
 - **Suggested Fix:** Return the intended balance value rather than the function reference. If the author obtains it by calling `balanceCheck`, use the final agreed signature and authentication behavior.
   (Author Entry): I decided to return `BALANCE` instead of calling `balanceCheck()`.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ## Additional requirement cross-check — reviewer confirmation needed
 
@@ -158,6 +144,16 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Explanation:** If a person can deposits `Infinity` they would have infinite amount of money and would not be good for the bank. This is a dangerous and risky mistake.
 - **Suggested Fix:** Added a condition to check is the amount number is Finite.
 - **Status:** Fixed (added by Author; pending group review).
+
+### LP02-16 — USER const never used.
+
+(Author Entry)
+
+- **Location:** `bankOfTheNorth.ts`, line 7 and line 42.
+- **Issue:** ESLint rule to display error when a `const` was never used.
+- **Explanation:** To pass the ESLint check, Reviewer found this error.
+- **Suggested Fix:** Display User name inside the console log message when the user successfully transfer money to a receiver.
+- **Status:** Fixed.
 
 ## Scribe follow-through
 
