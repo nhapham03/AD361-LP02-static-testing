@@ -56,7 +56,7 @@ The manual review must precede the automated-analysis comparison. Do not treat e
 ### What did ESLint identify?
 
 Original source - bankOfTheNorth.ts:  
-ESLint reported multiple warnigns from the `@typescript-eslint/no-unused-vars` rule. Several variables were declared and assigned values but never used, triggering repeated violations. One of these warnings involved the USER variable:
+ESLint reported 5 warnigns from the `@typescript-eslint/no-unused-vars` rule. Several variables were declared and assigned values but never used, triggering repeated violations. One of these warnings involved the USER variable:
 `error  'USER' is assigned a value but never used`
 
 Corrected source - fixBankOfTheNorth.ts:  
