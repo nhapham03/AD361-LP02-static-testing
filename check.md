@@ -23,7 +23,7 @@ This file contains the required review sections and reflection prompts. It does 
 
 - **Name:** Nha Pham
 - **Review status:** Ongoing.
-- **Required check:** Review the issue log and corrected code for unresolved defects.
+- **Required check:** Reviewed the issue log and corrected code for unresolved defects, while dicussing with group members.
 - **Final review note:** Pending — author to complete after their final review.
 
 ## Evidence
