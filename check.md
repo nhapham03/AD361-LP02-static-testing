@@ -48,8 +48,8 @@ The manual review must precede the automated-analysis comparison. Do not treat e
 ### Corrected source analysis
 
 - **Command:** `npx eslint fixBankOfTheNorth.ts`
-- **Screenshot:** Pending — save the actual terminal output in `screenshots` and record the filename here.
-- **Observed results:** Pending — record actual diagnostics, or that no diagnostics were printed if that is the actual result.
+- **Screenshot:** screenshots\eslint-fixed.png
+- **Observed results:** Only one error with a variable being unused
 
 ## Reflection: Manual Review Compared with ESLint
 
