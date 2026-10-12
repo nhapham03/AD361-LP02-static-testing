@@ -2,7 +2,7 @@
 
 **Activity:** LP02 — Static Testing  
 **Scribe:** José Antonio Horta Herrera  
-**Status:** In progress; not a completed submission.
+**Status:** Completed.
 
 ## Sources and scope
 
@@ -119,7 +119,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** `balanceCheck()` has no PIN parameter or PIN validation.
 - **Explanation:** The listed requirements say that a PIN must be provided during every action. This source-code comparison was not explicitly documented in the existing branch annotations and should be confirmed with the reviewer rather than attributed to that reviewer.
 - **Suggested Fix:** Ask the reviewer and author to confirm that balance checking is covered by the every-action PIN requirement, then require and validate the PIN consistently and update callers as needed.
-- **Status:** Ongoing.
+- **Status:** Fixed.
 
 ### LP02-13 — Unused transfer variable
 
@@ -127,7 +127,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** const `transferAmount` is stored but never used, incorrect use to call the function.
 - **Explanation:** Unused variable/constant causes confusions and is unnecessary to our fucnction. It calls `withdrawl` inccorectly, missing arguments.
 - **Suggested Fix:** Completely remove the const `transferAmount`, directly calls the correct `withdrawal` function with its 2 arguments that is PIN and amount as required.
-- **Status:** Fixed (added by Author; pending group review).
+- **Status:** Fixed (added by Author; group granted approval).
 
 ### LP02-14 — Failure messages do not identify the cause (improvement)
 
@@ -135,7 +135,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** Only displays message to user when PIN in incorrect.
 - **Explanation:** Added extra improvement to message the user when which action goes wrong, once the PIN is validated but the amount is invalid, then displays the correct message and not automatically displays "Incorrect PIN".
 - **Suggested Fix:** Added extra `else if` statement to display each action and message.
-- **Status:** Fixed (added by Author; pending group review).
+- **Status:** Fixed (added by Author; group granted approval).
 
 ### LP02-15 — Amount validation does not reject non-finite values
 
@@ -143,7 +143,7 @@ Allowed statuses: `Ongoing`, `Accepted`, `Rejected`, `Fixed`, and `Needs discuss
 - **Issue:** The check only looks at whether the amount is bigger than 0, so `Infinity` in TypeScript still gets through.
 - **Explanation:** If a person can deposits `Infinity` they would have infinite amount of money and would not be good for the bank. This is a dangerous and risky mistake.
 - **Suggested Fix:** Added a condition to check is the amount number is Finite.
-- **Status:** Fixed (added by Author; pending group review).
+- **Status:** Fixed (added by Author; group granted approval).
 
 ### LP02-16 — USER const never used.
 
