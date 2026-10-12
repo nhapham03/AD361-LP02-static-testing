@@ -4,7 +4,7 @@
 // - A user's balance should never become negative.
 // - A PIN must be provided during every action.
 
-const USER = "Rose Thecat";
+const USER = "Rose Thecat"; // variable is unsued, make it so it welcomes the user once "logged in"
 let BALANCE = 15983;
 const USER_PIN = 1234;
 

@@ -12,11 +12,11 @@ This file contains the required review sections and reflection prompts. It does 
 - **Review status:** Completed.
 - **Required check:** Compared `issue_log.md` with `fixBankOfTheNorth.ts` and reviewed the updated issue statuses.
 - **Final review note:** I reviewed the corrected code after the author's updates. The withdrawal PIN-validation issue I identified was corrected by checking the PIN before the amount and balance conditions. The unused `USER` constant was also addressed by using the user's name in the successful transfer message. The updated issue log reflects the fixes reviewed by the group.
-### Reviewer
 
-- **Name:** Pending — reviewer to complete.
+### Ingrid Arenas - Reviewer
+
 - **Review status:** Pending.
-- **Required check:** Review `issue_log.md` and confirm whether the identified defects have been addressed.
+- **Required check:** const USER was assigned but never used, two options remove it or use it somewhere in a console message
 - **Final review note:** Pending — reviewer to complete after their final review.
 
 ### Nha Pham - Author
@@ -41,30 +41,77 @@ The manual review must precede the automated-analysis comparison. Do not treat e
 
 ### Original source analysis
 
-- **Command:** `npx eslint bankOfTheNorth.ts`
-- **Screenshot:** Pending — save the actual terminal output in `screenshots` and record the filename here.
-- **Observed results:** Pending — record actual diagnostics only.
+- **Command:** `npx eslint fixBankOfTheNorth.ts`
+- **Screenshot:** screenshots\eslint-original.png
+- **Observed results:** bankOfTheNorth has multiple issed where a variable is assigned but never used
 
 ### Corrected source analysis
 
 - **Command:** `npx eslint fixBankOfTheNorth.ts`
-- **Screenshot:** Pending — save the actual terminal output in `screenshots` and record the filename here.
-- **Observed results:** Pending — record actual diagnostics, or that no diagnostics were printed if that is the actual result.
+- **Screenshot:** screenshots\eslint-fixed.png
+- **Observed results:** Only one error with a variable being unused
 
 ## Reflection: Manual Review Compared with ESLint
 
 ### What did ESLint identify?
 
-Pending — summarize actual messages from the original and corrected source runs. Identify which problems remained, disappeared, or were newly reported.
+Original source - bankOfTheNorth.ts:  
+ESLint reported 5 warnigns from the `@typescript-eslint/no-unused-vars` rule. Several variables were declared and assigned values but never used, triggering repeated violations. One of these warnings involved the USER variable:
+`error  'USER' is assigned a value but never used`
+
+Corrected source - fixBankOfTheNorth.ts:  
+
+After applying fixes, ESLint reported no remaining errors or warnings. All unused variables were either removed or properly referenced.
+The USER warning was resolved by adding a message that referenced the variable:  `Dear ${USER}, ${amount} was successfully transferred to ${reciver}`
 
 ### What did the group identify that ESLint did not?
 
-Pending — compare the confirmed manual-review findings with the actual diagnostics. Do not assume that a manual finding was missed by ESLint before checking the output.
+During manual review, the group identified several non‑linting issues that ESLint cannot detect. These issues came directly from the original code:
+
+- Logical inconsistencies in how data was handled: 
+    example line 14: 
+    Why ESLint didn’t catch it:
+
+    - BALANCE is an array, not a number
+    - Adding an array to a number results in string concatenation
+    - The balance is never actually updated
+
+    ESLint cannot detect incorrect business logic or misuse of data structures.
+
+- Redundant or unclear control flow:
+    example: lines 35-36
+    Why ESLint didn’t catch it:
+
+    - The console.log is unreachable code
+    - The function returns before performing its intended action
+
+    ESLint does not flag unreachable code
+
+- Missing validation or edge‑case handling
+    example: line 24
+    Why ESLint didn’t catch it:
+
+    - No check that amount is positive
+    - No check that amount is less than or equal to the balance
+    - No prevention of negative balances (a requirement)
+    - No error handling
+
+    These are semantic requirements, not linting violations.
+
+- Naming conventions or structural improvements that ESLint does not enforce
+    example: line 23
+    Why ESLint didn’t catch it:
+
+    - The function name is misspelled (withdrawl instead of withdrawal)
+    - The parameter amount is never used
+    - The variable balance is referenced but not declared in this scope
+
+    ESLint does not enforce naming conventions or detect conceptual mismatches.
 
 ### Did ESLint identify anything the group missed?
 
-Pending — report any additional findings from the actual runs. If there were none, state that only after completing the comparison.
-
+Yes, there was one issue the group overlooked, which ESLint correctly flagged:
+A remaining no-unused-vars warning that had not been addressed during manual review. Once this final unused variable was fixed, ESLint reported zero issues.
 ## Completion Check
 
 Before submission, confirm that all members have added their names and final review notes; the issue-log statuses match the corrected code; all three screenshot requirements are satisfied; the reflection is based on actual outputs; and the required files are present in the public repository. Every group member must submit the same repository URL on Canvas.
