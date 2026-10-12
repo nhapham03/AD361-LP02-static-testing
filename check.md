@@ -9,9 +9,9 @@ This file contains the required review sections and reflection prompts. It does 
 
 ### José Antonio Horta Herrera — Scribe
 
-- **Review status:** Pending.
-- **Required check:** Compare each entry in `issue_log.md` with `fixBankOfTheNorth.ts`, update the status according to the actual result, and identify any unresolved entries.
-- **Final review note:** Pending — add after the corrected code has been reviewed.
+- **Review status:** Completed.
+- **Required check:** Compared `issue_log.md` with `fixBankOfTheNorth.ts` and reviewed the updated issue statuses.
+- **Final review note:** I reviewed the corrected code after the author's updates. The withdrawal PIN-validation issue I identified was corrected by checking the PIN before the amount and balance conditions. The unused `USER` constant was also addressed by using the user's name in the successful transfer message. The updated issue log reflects the fixes reviewed by the group.
 
 ### Ingrid Arenas - Reviewer
 
