@@ -15,9 +15,9 @@ This file contains the required review sections and reflection prompts. It does 
 
 ### Ingrid Arenas - Reviewer
 
-- **Review status:** Pending.
+- **Review status:** completed
 - **Required check:** const USER was assigned but never used, two options remove it or use it somewhere in a console message
-- **Final review note:** Pending — reviewer to complete after their final review.
+- **Final review note:** After reviewing `fixBankOfTheNorth.ts`, no other issues were found either by me or ESlint. All unused variables have been dealt with, and there are no logic issues.
 
 ### Nha Pham - Author
 
