@@ -1,8 +1,7 @@
 # Cross-Check and Automated Static Analysis — Working Draft
 
 **Activity:** LP02 — Static Testing  
-**Status:** Ongoing ; not a completed submission.
-
+**Status:** Completed.
 This file contains the required review sections and reflection prompts. It does not claim that the final cross-check or automated analysis has been completed. Each member must add their own name and actual final review results.
 
 ## Group Members' Final Review Notes
